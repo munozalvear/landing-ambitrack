@@ -14,6 +14,7 @@ export default function Departments() {
           entry.target.classList.remove("visible");
         }
       });
+      
     });
 
     document.querySelectorAll(".fade-section").forEach((el) => observer.observe(el));
