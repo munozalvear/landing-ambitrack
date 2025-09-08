@@ -14,10 +14,10 @@ export default function Herologo() {
       </p>
       <p className="text-xl">
 
-        saber mas de nuestro proyecto descar Nuestro <a href="https://maps.app.goo.gl/n8ztB5ueNyQNMtes7" target="_blank" className="font-extrabold underline" >pdf</a>
+        saber mas de nuestro proyecto descar Nuestro <a href="/Proyecto_Unificado_AmbiTrack (1) (1).pdf" target="_blank" className="font-extrabold underline" >pdf</a>
       </p>
       <div className="mt-12 flex">
-        <Link href="/" className="text-[16px] font-extrabold dark:bg-white dark:text-black inline-flex bg-black rounded-full text-white py-1 px-4">
+        <Link href="/reports" className="text-[16px] font-extrabold dark:bg-white dark:text-black inline-flex bg-black rounded-full text-white py-1 px-4">
           Reportar
         </Link>
       </div>
