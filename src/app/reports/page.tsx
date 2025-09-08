@@ -1,11 +1,8 @@
 import Herologo from "@/app/herologo";
-import Griddata from "@/app/griddata";
-
 export default function Home() {
   return (
     <div>
         <Herologo />
-        <Griddata />
     </div>
   );
 }
