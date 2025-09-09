@@ -39,7 +39,7 @@ export default function Departments() {
                 <h3 className="text-2xl font-extrabold mb-5">{name}</h3>
                 <p className="text-sm">{description}</p>
               </div>
-              <div className="absolute bg-white/45 dark:bg-black/70  z-10 w-full h-full"></div>
+              <div className="absolute bg-white/30 dark:bg-black/70  z-10 w-full h-full"></div>
               <Image
                 src={image}
                 width={200}
