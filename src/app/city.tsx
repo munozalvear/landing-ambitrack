@@ -66,7 +66,7 @@ const UbicacionActual = () => {
     <span>
       {error && <p style={{ color: 'red' }}>{error}</p>}
       {!error && !ciudad && <p>Obteniendo ubicación...</p>}
-      {ciudad && <h3 className='text-6xl font-extrabold' >{ciudad}</h3>}
+      {ciudad && <h3 className='text-6xl font-extrabold' title={`en la ciudad de ${ciudad}`} >{ciudad}</h3>}
     </span>
   );
 };

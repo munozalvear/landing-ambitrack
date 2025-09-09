@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+@theme {
+  --color-bg-darck: #14141C;
+}
+
 html,
 body {
   display: flex;

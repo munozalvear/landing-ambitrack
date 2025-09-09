@@ -276,7 +276,7 @@ export default function ReportesCrud() {
   };
 
   return (
-    <section className="flex flex-col max-w-4xl dark: mx-auto py-36">
+    <section className="flex flex-col max-w-4xl dark: mx-auto pb-36">
       <h1 className="text-6xl font-extrabold mb-16">Descripción de Reportes</h1>
       <form onSubmit={handleSubmit} className="flex flex-col gap-10">
         <select
@@ -284,7 +284,7 @@ export default function ReportesCrud() {
           onChange={(e) => setForm({ ...form, tipo: e.target.value })}
           className="w-full border flex border-black/50 dark:border-white/50 rounded-2xl p-3 [&>option]:bg-transparent "
         >
-          <option value="">Selecciona tipo de reporte</option>
+          <option value="" disabled >Selecciona tipo de reporte</option>
           <option value="Ambiental">Ambiental</option>
           <option value="Infraestructura">Infraestructura</option>
           <option value="Social">Social</option>
