@@ -61,7 +61,7 @@ export default function Departments() {
               <Image
                 src={image}
                 width={200}
-                height={300}
+                height={200}
                 className="w-full card-image-departments h-full rounded-2xl object-cover"
                 alt={name}
               />

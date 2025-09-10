@@ -15,6 +15,10 @@ const Navigation = [
   {
     link: "/questions",
     text: "Quiz",
+  },
+  {
+    link: "/PacMan",
+    text: "Pac Man",
   }
 ];
 export default function Header() {

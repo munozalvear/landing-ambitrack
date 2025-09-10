@@ -22,7 +22,7 @@ const Hour = () => {
     second: "2-digit",
   });
 
-  return <h3 className="text-7xl font-extrabold" title={`hora actual: ${formatoHora}`} >{formatoHora}</h3>;
+  return <h3 className="text-3xl lg:text-4xl font-extrabold text-black dark:text-white text-center" title={`hora actual: ${formatoHora}`} >{formatoHora}</h3>;
 };
 
 export default Hour;

@@ -155,79 +155,95 @@ export default function ReportesCrud() {
       doc.line(15, yPos + 3, 195, yPos + 3);
 
       yPos += 15;
+      const containerStartY = yPos;
 
-      // Contenedor con bordes redondeados simulados
-      doc.setFillColor(...colors.lightGray);
-      doc.rect(15, yPos, 180, 80, "F");
-
-      // Borde del contenedor
-      doc.setDrawColor(...colors.primaryGreen);
-      doc.setLineWidth(1);
-      doc.rect(15, yPos, 180, 80, "S");
-
+      // Reservar espacio para calcular la altura del contenedor después
       yPos += 15;
 
       // Campos de información con diseño moderno
       const fields = [
-        { label: "TIPO DE REPORTE", value: r.tipo, icon: "🏷️" },
-        { label: "ZONA AFECTADA", value: r.zona, icon: "📍" },
-        { label: "DESCRIPCIÓN", value: r.descripcion, icon: "📝" },
+        { label: "TIPO DE REPORTE", value: r.tipo, icon: "" },
+        { label: "ZONA AFECTADA", value: r.zona, icon: "" },
+        { label: "DESCRIPCIÓN", value: r.descripcion, icon: "" },
       ];
 
+      // Calcular primero la altura del contenedor
+      let tempYPos = yPos;
+      fields.forEach((field) => {
+        const maxWidth = 160;
+        const splitText = doc.splitTextToSize(field.value, maxWidth);
+        const lineHeight = 6; // Aumentado de 5 a 6
+        const extraSpace = field.label === "DESCRIPCIÓN" ? 15 : 12; // Aumentado el espaciado
+        tempYPos += splitText.length * lineHeight + extraSpace;
+      });
+
+      const containerHeight = tempYPos - containerStartY + 10;
+      
+      // Dibujar el fondo del contenedor primero
+      doc.setFillColor(...colors.lightGray);
+      doc.rect(15, containerStartY, 180, containerHeight, "F");
+
+      // Borde del contenedor
+      doc.setDrawColor(...colors.primaryGreen);
+      doc.setLineWidth(1);
+      doc.rect(15, containerStartY, 180, containerHeight, "S");
+
+      // Ahora dibujar el texto encima del fondo
       fields.forEach((field) => {
         // Etiqueta del campo
         doc.setFont("helvetica", "bold");
         doc.setFontSize(11);
         doc.setTextColor(...colors.darkGray);
-        doc.text(`${field.icon} ${field.label}:`, 20, yPos);
+        doc.text(`${field.label}:`, 20, yPos);
 
-        // Valor del campo
+        // Valor del campo con color negro
         doc.setFont("helvetica", "normal");
         doc.setFontSize(12);
         doc.setTextColor(...colors.black);
-
-        if (field.label === "DESCRIPCIÓN") {
-          const splitText = doc.splitTextToSize(field.value, 150);
-          doc.text(splitText, 20, yPos + 8);
-          yPos += splitText.length * 5 + 10;
-        } else {
-          doc.text(field.value, 20, yPos + 8);
-          yPos += 18;
-        }
+        
+        const maxWidth = 160;
+        const splitText = doc.splitTextToSize(field.value, maxWidth);
+        doc.text(splitText, 20, yPos + 10); // Aumentado de 8 a 10
+        
+        const lineHeight = 6; // Aumentado de 5 a 6
+        const extraSpace = field.label === "DESCRIPCIÓN" ? 15 : 12; // Aumentado el espaciado
+        yPos += splitText.length * lineHeight + extraSpace;
       });
 
+      // Ajustar posición para la siguiente sección
+      yPos += 25; // Aumentado de 15 a 25
+
       // Sección de coordenadas geográficas
-      yPos = 170;
 
       // Fondo para la sección de coordenadas
       doc.setFillColor(...colors.primaryGreen);
-      doc.rect(15, yPos, 180, 35, "F");
+      doc.rect(15, yPos, 180, 45, "F"); // Aumentado de 35 a 45
 
       // Título de coordenadas
       doc.setFont("helvetica", "bold");
       doc.setFontSize(14);
       doc.setTextColor(...colors.white);
-      doc.text("🌍 COORDENADAS GEOGRÁFICAS", 20, yPos + 12);
+      doc.text("COORDENADAS GEOGRÁFICAS", 20, yPos + 12);
 
       // Coordenadas
       doc.setFont("helvetica", "normal");
       doc.setFontSize(11);
-      doc.text(`Latitud: ${r.lat.toFixed(6)}°`, 20, yPos + 22);
-      doc.text(`Longitud: ${r.lng.toFixed(6)}°`, 20, yPos + 30);
+      doc.text(`Latitud: ${r.lat.toFixed(6)}°`, 20, yPos + 25); // Aumentado de 22 a 25
+      doc.text(`Longitud: ${r.lng.toFixed(6)}°`, 20, yPos + 35); // Aumentado de 30 a 35
 
       // Enlace a Google Maps
       doc.setTextColor(...colors.lightGreen);
-      doc.text("📱 Ver en Google Maps", 120, yPos + 26);
+      doc.text("Ver en Google Maps", 120, yPos + 30); // Aumentado de 26 a 30
 
       // Footer moderno
-      yPos = 220;
+      yPos = 240; // Aumentado de 220 a 240
 
       // Línea separadora del footer
       doc.setDrawColor(...colors.primaryGreen);
       doc.setLineWidth(1);
       doc.line(15, yPos, 195, yPos);
 
-      yPos += 10;
+      yPos += 15; // Aumentado de 10 a 15
 
       // Información del footer
       doc.setFont("helvetica", "normal");
@@ -282,9 +298,9 @@ export default function ReportesCrud() {
         <select
           value={form.tipo}
           onChange={(e) => setForm({ ...form, tipo: e.target.value })}
-          className="w-full border flex border-black/50 dark:border-white/50 rounded-2xl p-3 [&>option]:bg-transparent "
+          className="w-full border flex border-black/50 dark:border-white/50 rounded-2xl p-3 bg-white dark:bg-bg-darck text-black dark:text-white [&>option]:bg-white [&>option]:dark:bg-bg-darck [&>option]:text-black [&>option]:dark:text-white"
         >
-          <option value="" disabled >Selecciona tipo de reporte</option>
+          <option value="" disabled>Selecciona tipo de reporte</option>
           <option value="Ambiental">Ambiental</option>
           <option value="Infraestructura">Infraestructura</option>
           <option value="Social">Social</option>
@@ -320,7 +336,7 @@ export default function ReportesCrud() {
 
         <ul className="max-w-full w-full gap-5 flex flex-col">
           {reportes.map((r) => (
-            <li key={r.id} className="border border-white/50 p-10 rounded-2xl ">
+            <li key={r.id} className="border border-black/50 dark:border-white/50 p-10 rounded-2xl ">
               <div className="flex gap-1 mb-8 flex-col">
                 <h5 className="font-extrabold text-2xl">Tipo:</h5>
                 <span>{r.tipo}</span>
@@ -341,22 +357,22 @@ export default function ReportesCrud() {
                 <h5 className="font-extrabold text-2xl">Longitud:</h5>
                 <span>{r.lng.toFixed(6)}</span>
               </div>
-              <div className="mt-2 w-full flex justify-center gap-9">
+              <div className="mt-2 w-full flex [&>button]:px-4 [&>button]:py-2 [&>button]:hover:scale-105 [&>button]:transition-all [&>button]:duration-200 [&>button]:ease-linear [&>button]:cursor-pointer [&>button]:rounded-[10px] [&>button]:font-extrabold [&>button]:text-white justify-center gap-9">
                 <button
                   onClick={() => handleEdit(r.id)}
-                  className="text-blue-600"
+                  className="bg-blue-600"
                 >
                   Editar
                 </button>
                 <button
                   onClick={() => handleDelete(r.id)}
-                  className="text-red-600"
+                  className="bg-red-600"
                 >
                   Eliminar
                 </button>
                 <button
                   onClick={() => handleDownload(r)}
-                  className="text-green-600"
+                  className="bg-green-600"
                 >
                   Descargar PDF
                 </button>
